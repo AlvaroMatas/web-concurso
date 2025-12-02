@@ -1,0 +1,72 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html, body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+header{
+    width: 100vw;
+    background-color: lightblue;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 15%;
+    position: fixed;
+}
+
+#tit-head{
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
+    color: darkslategray;
+    text-shadow: 0 4px 10px lightgrey;
+}
+
+#menu_nav{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+#list_nav{
+    list-style: none;
+    display: flex;
+    gap: 70px;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.nav_item{
+    font-size: 20px;
+    background-color: darkcyan;
+    padding: 10px;
+    border-radius: 50px;
+    box-shadow: 2px 2px 5px grey;
+    transition: all 0.3s ease;
+}
+
+.nav_item:hover{
+    background-color: rgb(215, 243, 243);
+    transform: scale(1.1);
+    color: darkslategray;
+}
+
+.enlaces_nav{
+    text-decoration: none;
+    color: lightyellow;
+    transition: all 0.3s ease;
+}
+
+.enlaces_nav:hover{
+    color: darkslategray;
+}
