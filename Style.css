@@ -605,3 +605,70 @@ header{
     }
     .auth-submit { background: linear-gradient(90deg,#2b6ce6,#4d83ff); }
 }
+
+@media (prefers-color-scheme: dark) {
+    #formacion-section {
+        background: linear-gradient(180deg, rgba(10,12,14,0.78), rgba(14,14,16,0.6));
+        border: 1px solid rgba(255,255,255,0.04);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.7);
+        color: #e6eef8;
+    }
+
+    #formacion-section h2,
+    #formacion-section label,
+    #desc-formacion {
+        color: #cfe4ff;
+    }
+
+    #formacion-section input[type="text"],
+    #formacion-section select {
+        background: linear-gradient(180deg, #070708, #0d0d0f);
+        border: 1px solid rgba(255,255,255,0.06);
+        color: #eaf0ff;
+    }
+
+    #formacion-section input[type="text"]::placeholder,
+    #formacion-section select option {
+        color: rgba(230,240,255,0.6);
+    }
+
+    #formacion-section input[type="text"]:focus,
+    #formacion-section select:focus {
+        border-color: rgba(100,150,255,0.9);
+        box-shadow: 0 6px 18px rgba(60,120,240,0.08);
+    }
+
+    #formacion-section button[type="submit"],
+    #formacion-section button#buscar-curso {
+        background: linear-gradient(90deg,#2b6ce6,#4d83ff);
+        color: #fff;
+        border: none;
+        box-shadow: 0 6px 18px rgba(47,85,200,0.18);
+    }
+
+    #formacion-section button[type="submit"]:hover,
+    #formacion-section button#buscar-curso:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 28px rgba(47,85,200,0.22);
+    }
+}
+
+body.dark-mode #formacion-section {
+    background: linear-gradient(180deg, rgba(12,14,16,0.85), rgba(10,11,13,0.7));
+    border: 1px solid rgba(100,181,246,0.06);
+    box-shadow: 0 8px 28px rgba(2,6,10,0.7);
+    color: #e8f3ff;
+}
+body.dark-mode #formacion-section h2,
+body.dark-mode #formacion-section label,
+body.dark-mode #desc-formacion { color: #cfe4ff; }
+body.dark-mode #formacion-section input[type="text"],
+body.dark-mode #formacion-section select {
+    background: linear-gradient(180deg,#070709,#0b0b0d);
+    border: 1px solid rgba(255,255,255,0.04);
+    color: #eaf0ff;
+}
+body.dark-mode #formacion-section button#buscar-curso {
+    background: linear-gradient(90deg,#2b6ce6,#4d83ff);
+    color: #fff;
+}
