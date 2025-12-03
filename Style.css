@@ -128,3 +128,139 @@ header{
 .tit-intro{
     text-align: center;
 }
+
+#leng-pop{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 50px 0;
+}
+
+.logos-leng{
+    width: 20%;
+    background-color: rgba(245, 245, 245, 0.849);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    align-items: center;
+}
+
+.logo-leng{
+    width: 70%;
+    height: 150px;
+    object-fit: contain;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.tit-logo{
+    background-color: rgba(88, 92, 133, 0.144);
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 30px;
+    color: rgb(54, 54, 54);
+}
+
+#tit-leng-pop{
+    background-color: rgb(215, 243, 243);
+    text-align: center;
+    padding: 50px 0;
+    font-size: 50px;
+    color: darkslategray;
+}
+
+#comparativa-section{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+#tit-comparativa{
+    text-align: center;
+    font-size: clamp(28px, 5vw, 48px);
+    color: darkslategray;
+    margin-bottom: 30px;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-color: rgb(215, 243, 243);
+    width: 100%;
+    padding: 50px 0;
+}
+
+.table-container{
+    overflow-x: auto;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.comparativa-table{
+    margin: auto;
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+.comparativa-table thead{
+    background: linear-gradient(135deg, rgb(88, 92, 133) 0%, rgba(88, 92, 133, 0.8) 100%);
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.comparativa-table thead th{
+    padding: 18px 15px;
+    text-align: left;
+    border-bottom: 3px solid rgb(88, 92, 133);
+}
+
+.comparativa-table tbody tr{
+    border-bottom: 1px solid #e0e0e0;
+    transition: background-color 0.3s ease;
+}
+
+.comparativa-table tbody tr:hover{
+    background-color: rgba(88, 92, 133, 0.08);
+}
+
+.comparativa-table tbody td{
+    padding: 16px 15px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgb(54, 54, 54);
+}
+
+.comparativa-table tbody tr:last-child{
+    border-bottom: none;
+}
+
+.comparativa-table .aspecto{
+    font-weight: 600;
+    color: rgb(88, 92, 133);
+    width: 20%;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px){
+    .comparativa-table thead th{
+        padding: 12px 10px;
+        font-size: 13px;
+    }
+    
+    .comparativa-table tbody td{
+        padding: 12px 10px;
+        font-size: 12px;
+    }
+    
+    .comparativa-table .aspecto{
+        width: 30%;
+    }
+}
