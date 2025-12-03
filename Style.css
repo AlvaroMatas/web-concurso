@@ -121,12 +121,19 @@ header{
     width: 50%;
     color: white;
     box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+    border-left: 4px solid #64b5f6;
     font-size: 20px;
     line-height: 1.5;
 }
 
 .tit-intro{
     text-align: center;
+}
+
+
+.tit-intro{
+    border-left: 4px solid #64b5f6;
+    padding-left: 12px;
 }
 
 #leng-pop{
@@ -145,6 +152,8 @@ header{
     flex-direction: column;
     justify-content: baseline;
     align-items: center;
+    border: 2px solid rgba(100,181,246,0.18);
+    transition: box-shadow 0.18s ease, transform 0.18s ease;
 }
 
 .logo-leng{
@@ -163,6 +172,7 @@ header{
     border-radius: 15px;
     font-size: 30px;
     color: rgb(54, 54, 54);
+    border-left: 4px solid #64b5f6;
 }
 
 #tit-leng-pop{
@@ -171,6 +181,7 @@ header{
     padding: 50px 0;
     font-size: 50px;
     color: darkslategray;
+    border-bottom: 3px solid #64b5f6;
 }
 
 #comparativa-section{
@@ -191,6 +202,7 @@ header{
     background-color: rgb(215, 243, 243);
     width: 100%;
     padding: 50px 0;
+    border-bottom: 3px solid #64b5f6;
 }
 
 .table-container{
