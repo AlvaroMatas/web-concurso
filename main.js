@@ -83,6 +83,77 @@ document.addEventListener('DOMContentLoaded', () => {
     createDarkModeToggle();
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    const buscarBtn = document.getElementById('buscar-curso');
+    const authModal = document.getElementById('auth-modal');
+    const authOverlay = document.getElementById('auth-overlay');
+    const authClose = document.getElementById('auth-close');
+    const showLogin = document.getElementById('show-login');
+    const showRegister = document.getElementById('show-register');
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+
+    function openModal() {
+        authModal.classList.remove('hidden');
+        authModal.setAttribute('aria-hidden', 'false');
+        setTimeout(() => {
+            const first = authModal.querySelector('input');
+            if (first) first.focus();
+        }, 50);
+    }
+    function closeModal() {
+        authModal.classList.add('hidden');
+        authModal.setAttribute('aria-hidden', 'true');
+    }
+
+    buscarBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal();
+    });
+
+    authOverlay.addEventListener('click', closeModal);
+    authClose.addEventListener('click', closeModal);
+
+    showLogin.addEventListener('click', () => {
+        showLogin.classList.add('active');
+        showRegister.classList.remove('active');
+        loginForm.classList.remove('hidden');
+        registerForm.classList.add('hidden');
+    });
+    showRegister.addEventListener('click', () => {
+        showRegister.classList.add('active');
+        showLogin.classList.remove('active');
+        registerForm.classList.remove('hidden');
+        loginForm.classList.add('hidden');
+    });
+
+    loginForm.addEventListener('submit', (ev) => {
+        ev.preventDefault();
+        console.log('Iniciar sesión', {
+            email: document.getElementById('login-email').value
+        });
+        closeModal();
+    });
+    registerForm.addEventListener('submit', (ev) => {
+        ev.preventDefault();
+        const p1 = document.getElementById('reg-pass').value;
+        const p2 = document.getElementById('reg-pass2').value;
+        if (p1 !== p2) {
+            alert('Las contraseñas no coinciden.');
+            return;
+        }
+        console.log('Registrar', {
+            name: document.getElementById('reg-name').value,
+            email: document.getElementById('reg-email').value
+        });
+        closeModal();
+    });
+
+    document.addEventListener('keydown', (k) => {
+        if (k.key === 'Escape') closeModal();
+    });
+});
+
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {
@@ -261,6 +332,8 @@ style.textContent = `
         background-color: #64b5f6;
         box-shadow: 0 6px 16px rgba(100, 181, 246, 0.5);
     }
+
+    
 `;
 document.head.appendChild(style);
 

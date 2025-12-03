@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lenguajes de programación</title>
@@ -106,6 +106,56 @@
                 </table>
             </div>
         </section>
+        <section id="formacion-section">
+            <h2 id="tit-formacion">Formación y Recursos para Aprender a Programar</h2>
+            <div id="form">
+                <p id="desc-formacion">Aquí encontrarás una selección de cursos, libros y recursos en línea para mejorar tus habilidades de programación.</p>
+                <form>
+                    <label for="curso">Curso:</label>
+                    <input type="text" id="curso" name="curso" title="Elige el lenguaje de programación" required>
+                    <label for="nivel">Nivel:</label>
+                    <select id="nivel" name="nivel" required>
+                        <option value="basico">Básico</option>
+                        <option value="intermedio">Intermedio</option>
+                        <option value="avanzado">Avanzado</option>
+                    </select>
+                    <button type="submit" id="buscar-curso">Buscar</button>
+                </form>
+            </div>
+    </div>
+    <div id="auth-modal" class="hidden" aria-hidden="true" role="dialog" aria-label="Autenticación">
+        <div class="auth-overlay" id="auth-overlay"></div>
+        <div class="auth-panel" role="document">
+            <button class="auth-close" id="auth-close" aria-label="Cerrar">&times;</button>
+            <div class="auth-switch">
+                <button id="show-login" class="active">Iniciar sesión</button>
+                <button id="show-register">Registrarse</button>
+            </div>
+            <div class="auth-forms">
+                <form id="login-form" class="auth-form">
+                    <h3>Iniciar sesión</h3>
+                    <label for="login-email">Correo</label>
+                    <input id="login-email" type="email" required>
+                    <label for="login-pass">Contraseña</label>
+                    <input id="login-pass" type="password" required>
+                    <button type="submit" class="auth-submit">Entrar</button>
+                </form>
+
+                <form id="register-form" class="auth-form hidden">
+                    <h3>Registrarse</h3>
+                    <label for="reg-name">Nombre</label>
+                    <input id="reg-name" type="text" required>
+                    <label for="reg-email">Correo</label>
+                    <input id="reg-email" type="email" required>
+                    <label for="reg-pass">Contraseña</label>
+                    <input id="reg-pass" type="password" required>
+                    <label for="reg-pass2">Confirmar contraseña</label>
+                    <input id="reg-pass2" type="password" required>
+                    <button type="submit" class="auth-submit">Crear cuenta</button>
+                </form>
+            </div>
+        </div>
+    </div>
     </main>
     <footer id="pie_web">
         © 2025 Álvaro Matas Adam - Todos los derechos reservados.
