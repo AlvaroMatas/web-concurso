@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Efecto máquina de escribir en el título
+    
     const typewriterTitle = () => {
         const el = document.getElementById('tit-head');
         if (!el) return;
         const text = el.textContent.trim();
         el.textContent = '';
         let i = 0;
-        const speed = 50; // milisegundos por carácter
+        const speed = 50; 
         function type() {
             if (i < text.length) {
                 el.textContent += text.charAt(i);
@@ -19,17 +19,15 @@ document.addEventListener('DOMContentLoaded', () => {
     
     typewriterTitle();
     
-    // 2. Hacer que el título sea clickeable para repetir la animación
     const titleHead = document.getElementById('tit-head');
     if (titleHead) {
         titleHead.style.cursor = 'pointer';
         titleHead.addEventListener('click', typewriterTitle);
     }
     
-    // 3. Scroll suave para los enlaces del menú
     document.querySelectorAll('.enlaces_nav').forEach(link => {
         link.addEventListener('click', (e) => {
-            // Solo aplicar scroll suave si es un ancla local
+            
             const href = link.getAttribute('href');
             if (href && href.startsWith('#')) {
                 e.preventDefault();
@@ -41,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
-    // 4. Animación al entrar en viewport (cuando se ven los elementos)
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -100px 0px'
@@ -56,12 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
     
-    // Observar elementos
+    
     document.querySelectorAll('.logos-leng, .porque-que_son, .table-container').forEach(el => {
         observer.observe(el);
     });
     
-    // 5. Toggle Modo Oscuro
+    
     const createDarkModeToggle = () => {
         const toggleBtn = document.createElement('button');
         toggleBtn.id = 'dark-mode-toggle';
@@ -69,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleBtn.title = 'Alternar modo oscuro';
         document.body.appendChild(toggleBtn);
         
-        // Recuperar preferencia guardada
         const isDarkMode = localStorage.getItem('darkMode') === 'true';
         if (isDarkMode) {
             document.body.classList.add('dark-mode');
@@ -87,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
     createDarkModeToggle();
 });
 
-// Agregar animación CSS dinámicamente
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {
