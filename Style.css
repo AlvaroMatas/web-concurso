@@ -741,7 +741,7 @@ body.dark-mode #formacion-section button#buscar-curso {
     box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
 }
 
-#tit-caracteristicas{
+#tit-caracteristicas, #tit-hola_mundo{
     text-align: center;
     font-size: clamp(28px, 5vw, 48px);
     color: darkslategray;
@@ -774,6 +774,70 @@ body.dark-mode #formacion-section button#buscar-curso {
     width: 250px;
 }
 
-.tit-carac-len{
+.tit-carac-len, #código-ejemplo, #resultado-ejemplo{
     color: rgb(60, 112, 114);
 }
+
+#contenedor-holamundo{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 26px;
+    margin-bottom: 50px;
+}
+
+.ejemplo-holamundo{
+    background-color: rgba(245, 245, 245, 0.849);
+    width: 30%;
+    height: 210px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 210px;
+}
+
+#boton-codigo-ejemplo{
+    background-color: #2b6ce6;
+    border: none;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+    border-radius: 15px;
+    box-shadow: 0 0 35px 3px rgb(88, 92, 133);
+    transition: all 0.5s linear;
+}
+
+#boton-codigo-ejemplo:hover{
+    transform: translateY(-2px);
+}
+
+#código-ejemplo, #resultado-ejemplo{
+    font-weight: bold;
+    font-size: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#codigo-ejemplo-text, #resultado-ejemplo-text{
+    font-size: 30px ;
+    margin-top: 20px;
+}
+
+
+#codigo-ejemplo-text{
+    display: none;
+}
+
+#codigo-ejemplo-text.visible{
+    display: block;
+}
+
+#resultado-ejemplo-text{
+    display: none;
+}
+
+#resultado-ejemplo-text.visible{
+    display: block;
+}
+

@@ -81,6 +81,66 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     createDarkModeToggle();
+    
+    // Funcionalidad de escritura de código en python.html
+    const codigoBtn = document.getElementById('boton-codigo-ejemplo');
+    const codigoText = document.getElementById('codigo-ejemplo-text');
+    
+    if (codigoBtn && codigoText) {
+        let isActive = false;
+        let typeoutTimeout = null;
+        
+        codigoBtn.addEventListener('click', () => {
+            isActive = !isActive;
+            
+            if (isActive) {
+                codigoText.classList.add('visible');
+                codigoText.textContent = '';
+                
+                const code = 'print("Hola mundo")';
+                let i = 0;
+                const speed = 60;
+                
+                const typeCode = () => {
+                    if (i < code.length) {
+                        codigoText.textContent += code.charAt(i);
+                        i++;
+                        typeoutTimeout = setTimeout(typeCode, speed);
+                    } else {
+                        // Cuando el código termina, mostrar el resultado
+                        const resultadoText = document.getElementById('resultado-ejemplo-text');
+                        if (resultadoText) {
+                            resultadoText.classList.add('visible');
+                            resultadoText.textContent = '';
+                            
+                            const resultado = 'Hola mundo';
+                            let j = 0;
+                            
+                            const typeResult = () => {
+                                if (j < resultado.length) {
+                                    resultadoText.textContent += resultado.charAt(j);
+                                    j++;
+                                    typeoutTimeout = setTimeout(typeResult, speed);
+                                }
+                            };
+                            typeResult();
+                        }
+                    }
+                };
+                typeCode();
+            } else {
+                clearTimeout(typeoutTimeout);
+                codigoText.classList.remove('visible');
+                codigoText.textContent = '';
+                
+                const resultadoText = document.getElementById('resultado-ejemplo-text');
+                if (resultadoText) {
+                    resultadoText.classList.remove('visible');
+                    resultadoText.textContent = '';
+                }
+            }
+        });
+    }
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -336,5 +396,8 @@ style.textContent = `
     
 `;
 document.head.appendChild(style);
+
+
+
 
 
