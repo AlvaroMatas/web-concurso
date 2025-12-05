@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     createDarkModeToggle();
     
-    // Funcionalidad de escritura de cÛdigo en python.html
+    // Funcionalidad de escritura de cÔøΩdigo en python.html
     const codigoBtn = document.getElementById('boton-codigo-ejemplo');
     const codigoText = document.getElementById('codigo-ejemplo-text');
     
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         i++;
                         typeoutTimeout = setTimeout(typeCode, speed);
                     } else {
-                        // Cuando el cÛdigo termina, mostrar el resultado
+                        // Cuando el cÔøΩdigo termina, mostrar el resultado
                         const resultadoText = document.getElementById('resultado-ejemplo-text');
                         if (resultadoText) {
                             resultadoText.classList.add('visible');
@@ -139,6 +139,122 @@ document.addEventListener('DOMContentLoaded', () => {
                     resultadoText.textContent = '';
                 }
             }
+        });
+    }
+
+    // --- Simulador de Python (cliente) ---
+    const editor = document.getElementById('editor-code');
+    const runBtn = document.getElementById('run-code');
+    const clearBtn = document.getElementById('clear-output');
+    const outputEl = document.getElementById('simulator-output');
+    const loadBtn = document.getElementById('load-example');
+    const exampleSelect = document.getElementById('example-select');
+    const copyBtn = document.getElementById('copy-code');
+
+    const EXAMPLES = {
+        hola: 'print("Hola mundo")',
+        math: 'a = 2 + 3\nprint(a)\nprint(10 * (2 + 3))',
+        loop: 'for i in range(5):\n    print(i)'
+    };
+
+    function evaluateExpr(expr, env) {
+        expr = expr.trim();
+        // string literal
+        const strm = expr.match(/^(['"])(.*)\1$/);
+        if (strm) return strm[2];
+        // number literal
+        if (/^[+-]?(\d+(\.\d+)?)$/.test(expr)) return Number(expr);
+        // variable
+        if (/^[a-zA-Z_]\w*$/.test(expr)) return env[expr] !== undefined ? env[expr] : `(variable '${expr}' no definida)`;
+        // replace variables with their values for arithmetic
+        const safe = expr.replace(/([a-zA-Z_]\w*)/g, (m) => (env[m] !== undefined ? String(env[m]) : 'NaN'));
+        if (/^[0-9+\-*/().\s]+$/.test(safe)) {
+            try { return Function(`return (${safe})`)(); } catch (e) { return `# error: ${e.message}`; }
+        }
+        return `(expresi√≥n no soportada: ${expr})`;
+    }
+
+    function runPythonSim(code) {
+        const lines = code.split(/\r?\n/);
+        const env = {};
+        let out = '';
+
+        for (let i = 0; i < lines.length; i++) {
+            const raw = lines[i];
+            const line = raw.trim();
+            if (!line) continue;
+
+            // for-loop: for i in range(N):
+            const forMatch = line.match(/^for\s+([a-zA-Z_]\w*)\s+in\s+range\((\d+)\):$/);
+            if (forMatch) {
+                const varName = forMatch[1];
+                const n = parseInt(forMatch[2], 10);
+                // collect indented block
+                const block = [];
+                let j = i + 1;
+                while (j < lines.length && /^\s+/.test(lines[j])) { block.push(lines[j].trim()); j++; }
+                i = j - 1;
+                for (let k = 0; k < n; k++) {
+                    env[varName] = k;
+                    for (const bl of block) {
+                        if (bl.startsWith('print(')) {
+                            const inside = bl.match(/^print\((.*)\)$/)[1];
+                            out += String(evaluateExpr(inside, env)) + '\n';
+                        }
+                    }
+                }
+                continue;
+            }
+
+            // assignment: name = expr
+            const assign = line.match(/^([a-zA-Z_]\w*)\s*=\s*(.+)$/);
+            if (assign) {
+                const name = assign[1];
+                const expr = assign[2];
+                env[name] = evaluateExpr(expr, env);
+                continue;
+            }
+
+            // print
+            const p = line.match(/^print\((.*)\)$/);
+            if (p) {
+                out += String(evaluateExpr(p[1], env)) + '\n';
+                continue;
+            }
+
+            out += `# l√≠nea no soportada: ${line}\n`;
+        }
+
+        return out || '(sin salida)';
+    }
+
+    if (loadBtn && exampleSelect && editor) {
+        loadBtn.addEventListener('click', () => {
+            const ex = exampleSelect.value;
+            editor.value = EXAMPLES[ex] || '';
+        });
+    }
+
+    if (runBtn && editor && outputEl) {
+        runBtn.addEventListener('click', () => {
+            const code = editor.value || '';
+            outputEl.textContent = 'Ejecutando...';
+            setTimeout(() => { // simulate async
+                outputEl.textContent = runPythonSim(code);
+            }, 200);
+        });
+    }
+
+    if (clearBtn && outputEl) {
+        clearBtn.addEventListener('click', () => { outputEl.textContent = '(sin salida)'; });
+    }
+
+    if (copyBtn && editor) {
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard?.writeText(editor.value).then(() => {
+                copyBtn.textContent = 'Copiado!';
+                setTimeout(() => { copyBtn.textContent = 'Copiar'; }, 1200);
+            }).catch(() => { alert('No se pudo copiar al portapapeles.'); });
         });
     }
 });
@@ -396,6 +512,8 @@ style.textContent = `
     
 `;
 document.head.appendChild(style);
+
+
 
 
 

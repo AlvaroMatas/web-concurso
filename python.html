@@ -82,6 +82,32 @@
                 </div>
             </div>
         </section>
+        <!-- Simulador de Python (cliente) - interactivo sin ejecución remota -->
+        <section id="simulador">
+            <h2 id="tit-simulador">Simulador de Python 🧪</h2>
+            <div id="simulador-grid">
+                <div class="simu-panel">
+                    <label for="editor-code">Escribe código (sintaxis básica soportada):</label>
+                    <textarea id="editor-code" rows="10" placeholder="print(\"Hola mundo\")\na = 2 + 2\nprint(a)"></textarea>
+                    <div class="simu-controls">
+                        <select id="example-select">
+                            <option value="hola">Hola mundo</option>
+                            <option value="math">Operaciones</option>
+                            <option value="loop">Bucle for</option>
+                        </select>
+                        <button id="load-example">Cargar</button>
+                        <button id="run-code">Ejecutar (simulado)</button>
+                        <button id="clear-output">Limpiar</button>
+                        <button id="copy-code">Copiar</button>
+                    </div>
+                </div>
+                <div class="simu-panel output-panel">
+                    <h3>Salida</h3>
+                    <pre id="simulator-output" class="output-box" aria-live="polite">(sin salida)</pre>
+                </div>
+            </div>
+        </section>
+        </section>
     </main>
     <footer id="pie_web">
         © 2025 Álvaro Matas Adam - Todos los derechos reservados.
@@ -90,3 +116,4 @@
     <script src="main.js"></script>
 </body>
 </html>
+
