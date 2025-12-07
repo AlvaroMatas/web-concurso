@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="logoweb-removebg-preview.png" type="image/png">
+    <link rel="stylesheet" href="Style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lenguajes | Java</title>
+</head>
+<body>
+    <div id="contenedor">
+        <header>
+        <h1 id="tit-head">Lenguajes de Programación 💻</h1>
+        <nav id="menu_nav">
+            <ul id="list_nav">
+                <li class="nav_item">
+                    <a target="_self" class="enlaces_nav" href="index.html">Inicio</a>
+                </li>
+                <li class="nav_item">
+                    <a target="_blank" class="enlaces_nav" href="python.html">Python</a>
+                </li>
+                <li class="nav_item">
+                    <a target="_blank" class="enlaces_nav" href="javascript.html">JavaScript</a>
+                </li>
+                <li class="nav_item">
+                    <a target="_blank" class="enlaces_nav" href="java.html">Java</a>
+                </li>
+                <li class="nav_item">
+                    <a target="_blank" class="enlaces_nav" href="c.html">C#</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main id="cuerpo">
+        <div id="historia">
+            <div id="historia-creador">
+                <h2 id="tit-historia">Historia de JavaScript 📜</h2>
+                <p id="text-historia">JavaScript fue creado en 1995 por Brendan Eich en Netscape para dar interactividad a las páginas web; luego se estandarizó como ECMAScript y hoy es el lenguaje esencial del desarrollo web moderno.</p>
+            </div>
+            <div id="historia-creador2">
+                <h2 id="creador-len">Creador</h2>
+                <img src="creador js.jpg" alt="Creador de JavaScript" id="img-creador">
+                <p id="nombre-creador">Brendan Eich</p>
+            </div>
+        </div>
+        <section id="caracteristicas">
+            <h2 id="tit-caracteristicas">Caracteristicas de JavaScript</h2>
+            <div id="conte-caracteristicas">
+                <div class="caracteristicas-len">
+                    <h3 class="tit-carac-len">Interpretado y ligero</h3>
+                    <p class="text-carac-len">→ No necesita compilación previa; el navegador o motor lo ejecuta directamente.</p>
+                </div>
+                <div class="caracteristicas-len">
+                    <h3 class="tit-carac-len">Tipado débil y dinámico</h3>
+                    <p class="text-carac-len">→ Las variables no requieren declarar tipo; pueden cambiar según el valor asignado</p>
+                </div>
+                <div class="caracteristicas-len">
+                    <h3 class="tit-carac-len">Basado en prototipos</h3>
+                    <p class="text-carac-len">→ La orientación a objetos se implementa mediante prototipos en lugar de clases tradicionales</p>
+                </div>
+                <div class="caracteristicas-len">
+                    <h3 class="tit-carac-len">Un solo hilo con asincronía</h3>
+                    <p class="text-carac-len">→ Se ejecuta en un único hilo, pero maneja tareas concurrentes con event loop, callbacks y promesas</p>
+                </div>
+                <div class="caracteristicas-len">
+                    <h3 class="tit-carac-len">Muy utilizado y sencillo</h3>
+                    <p class="text-carac-len">→ Es uno de los lenguajes más populares del mundo, con una curva de aprendizaje accesible</p>
+                </div>
+            </div>
+        </section>
+        <section id="hola_mundo">
+            <h2 id="tit-hola_mundo">Ejemplo de código para ejecutar "Hola mundo"</h2>
+            <div id="contenedor-holamundo">
+                <div class="ejemplo-holamundo">
+                    <h3 id="código-ejemplo">Código</h3>
+                    <button id="boton-codigo-ejemplo">Escribir código</button>
+                    <p id="codigo-ejemplo-text">console.log("Hola mundo");</p>
+                </div>
+                <div class="ejemplo-holamundo">
+                    <h3 id="resultado-ejemplo">Resultado</h3>
+                    <p id="resultado-ejemplo-text">Hola mundo</p>
+                </div>
+            </div>
+        </section>
+        <section id="simulador">
+            <h2 id="tit-simulador">Simulador de JavaScript 🧪</h2>
+            <div id="simulador-grid">
+                <div class="simu-panel">
+                    <label for="editor-code">Escribe código (sintaxis básica soportada):</label>
+                    <textarea id="editor-code" rows="10" placeholder="console.log('Hola mundo');\nlet a = 2 + 3;\nconsole.log(a);"></textarea>
+                    <div class="simu-controls">
+                        <select id="example-select">
+                            <option value="hola">console.log</option>
+                            <option value="math">Operaciones</option>
+                            <option value="loop">Bucle for</option>
+                            <option value="conditionals">If/else</option>
+                        </select>
+                        <button id="load-example">Cargar</button>
+                        <button id="run-code">Ejecutar (simulado)</button>
+                        <button id="clear-output">Limpiar</button>
+                        <button id="copy-code">Copiar</button>
+                    </div>
+                </div>
+                <div class="simu-panel output-panel">
+                    <h3>Salida</h3>
+                    <pre id="simulator-output" class="output-box" aria-live="polite">(sin salida)</pre>
+                </div>
+            </div>
+        </section>
+        </section>
+    </main>
+    <footer id="pie_web">
+        © 2025 Álvaro Matas Adam - Todos los derechos reservados.
+    </footer>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
