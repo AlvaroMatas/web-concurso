@@ -85,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentPageName = window.location.pathname.split('/').pop() || 'index.html';
     const isJavaScriptPage = currentPageName.includes('javascript');
     const isPythonPage = currentPageName.includes('python');
+    const isJavaPage = currentPageName.includes('java') && !currentPageName.includes('javascript');
     
     const codeExamples = {
         python: {
@@ -97,7 +98,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
     
-    const currentLang = isJavaScriptPage ? 'javascript' : (isPythonPage ? 'python' : 'python');
+    codeExamples.java = {
+        code: 'System.out.println("Hola mundo");',
+        result: 'Hola mundo'
+    };
+
+    const currentLang = isJavaScriptPage ? 'javascript' : (isPythonPage ? 'python' : (isJavaPage ? 'java' : 'python'));
     const example = codeExamples[currentLang];
     
     if (codigoBtn && codigoText) {
@@ -176,7 +182,14 @@ document.addEventListener('DOMContentLoaded', () => {
         conditionals: 'let edad = 18;\nif (edad >= 18) {\n  console.log("Mayor de edad");\n} else {\n  console.log("Menor de edad");\n}'
     };
 
-    const EXAMPLES = isJavaScriptPage ? EXAMPLES_JS : EXAMPLES_PYTHON;
+    const EXAMPLES_JAVA = {
+        hola: 'System.out.println("Hola mundo");',
+        math: 'int a = 2 + 3;\nSystem.out.println(a);\nSystem.out.println(10 * (2 + 3));',
+        loop: 'for (int i = 0; i < 5; i++) {\n  System.out.println(i);\n}',
+        conditionals: 'int edad = 18;\nif (edad >= 18) {\n  System.out.println("Mayor de edad");\n} else {\n  System.out.println("Menor de edad");\n}'
+    };
+
+    const EXAMPLES = isJavaScriptPage ? EXAMPLES_JS : (isJavaPage ? EXAMPLES_JAVA : EXAMPLES_PYTHON);
 
     function evaluateExpr(expr, env) {
         expr = expr.trim();
@@ -347,7 +360,113 @@ document.addEventListener('DOMContentLoaded', () => {
         return (consoleLogs.length > 0 ? consoleLogs.join('\n') : '(sin salida)') + (out ? '\n' + out : '');
     }
 
-    const runSimulator = isJavaScriptPage ? runJavaScriptSim : runPythonSim;
+    function runJavaSim(code) {
+        const lines = code.split(/\r?\n/);
+        const env = {};
+        let out = '';
+        const consoleLogs = [];
+
+        for (let i = 0; i < lines.length; i++) {
+            const raw = lines[i];
+            const line = raw.trim();
+            if (!line) continue;
+
+            const printlnMatch = line.match(/System\.out\.println\((.*)\);?$/);
+            if (printlnMatch) {
+                const expr = printlnMatch[1];
+                consoleLogs.push(String(evaluateExpr(expr, env)));
+                continue;
+            }
+
+            const varDecl = line.match(/^(int|double|String)\s+([a-zA-Z_]\w*)\s*=\s*(.+);?$/);
+            if (varDecl) {
+                const name = varDecl[2];
+                const expr = varDecl[3];
+                env[name] = evaluateExpr(expr, env);
+                continue;
+            }
+
+            const assign = line.match(/^([a-zA-Z_]\w*)\s*=\s*(.+);?$/);
+            if (assign) {
+                const name = assign[1];
+                const expr = assign[2];
+                env[name] = evaluateExpr(expr, env);
+                continue;
+            }
+
+            const forMatch = line.match(/for\s*\(\s*(?:int|long)?\s*([a-zA-Z_]\w*)\s*=\s*0;\s*\1\s*<\s*(\d+);\s*\1\+\+\s*\)\s*\{/);
+            if (forMatch) {
+                const varName = forMatch[1];
+                const n = parseInt(forMatch[2], 10);
+                const block = [];
+                let j = i + 1;
+                let braceCount = 1;
+                while (j < lines.length && braceCount > 0) {
+                    const bline = lines[j].trim();
+                    if (bline.includes('{')) braceCount += (bline.match(/\{/g) || []).length;
+                    if (bline.includes('}')) braceCount -= (bline.match(/\}/g) || []).length;
+                    if (braceCount > 0) block.push(bline);
+                    j++;
+                }
+                i = j - 1;
+                for (let k = 0; k < n; k++) {
+                    env[varName] = k;
+                    for (const bl of block) {
+                        if (bl.startsWith('System.out.println(')) {
+                            const inside = bl.match(/System\.out\.println\((.*)\)/)[1];
+                            consoleLogs.push(String(evaluateExpr(inside, env)));
+                        }
+                    }
+                }
+                continue;
+            }
+
+            const ifMatch = line.match(/if\s*\(\s*(.+?)\s*\)\s*\{/);
+            if (ifMatch) {
+                const condition = ifMatch[1];
+                const condValue = evaluateExpr(condition, env);
+                const block = [];
+                let j = i + 1;
+                let braceCount = 1;
+                while (j < lines.length && braceCount > 0) {
+                    const bline = lines[j].trim();
+                    if (bline.includes('{')) braceCount += (bline.match(/\{/g) || []).length;
+                    if (bline.includes('}')) braceCount -= (bline.match(/\}/g) || []).length;
+                    if (braceCount > 0) block.push(bline);
+                    j++;
+                }
+
+                let elseBlock = [];
+                if (j < lines.length && lines[j].trim().startsWith('} else')) {
+                    j++;
+                    braceCount = 1;
+                    while (j < lines.length && braceCount > 0) {
+                        const bline = lines[j].trim();
+                        if (bline.includes('{')) braceCount += (bline.match(/\{/g) || []).length;
+                        if (bline.includes('}')) braceCount -= (bline.match(/\}/g) || []).length;
+                        if (braceCount > 0) elseBlock.push(bline);
+                        j++;
+                    }
+                }
+
+                i = j - 1;
+                const execBlock = condValue ? block : elseBlock;
+                for (const bl of execBlock) {
+                    if (bl.startsWith('System.out.println(')) {
+                        const inside = bl.match(/System\.out\.println\((.*)\)/)[1];
+                        consoleLogs.push(String(evaluateExpr(inside, env)));
+                    }
+                }
+                continue;
+            }
+
+            out += `// línea no soportada: ${line}\n`;
+        }
+
+        return (consoleLogs.length > 0 ? consoleLogs.join('\n') : '(sin salida)') + (out ? '\n' + out : '');
+    }
+
+    const runSimulator = isJavaScriptPage ? runJavaScriptSim : (isJavaPage ? runJavaSim : runPythonSim);
 
     if (loadBtn && exampleSelect && editor) {
         loadBtn.addEventListener('click', () => {
