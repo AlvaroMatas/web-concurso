@@ -86,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const isJavaScriptPage = currentPageName.includes('javascript');
     const isPythonPage = currentPageName.includes('python');
     const isJavaPage = currentPageName.includes('java') && !currentPageName.includes('javascript');
+    const isCPage = currentPageName === 'c.html' || currentPageName.includes('c.html');
     
     const codeExamples = {
         python: {
@@ -102,8 +103,12 @@ document.addEventListener('DOMContentLoaded', () => {
         code: 'System.out.println("Hola mundo");',
         result: 'Hola mundo'
     };
+    codeExamples.csharp = {
+        code: 'Console.WriteLine("Hola mundo");',
+        result: 'Hola mundo'
+    };
 
-    const currentLang = isJavaScriptPage ? 'javascript' : (isPythonPage ? 'python' : (isJavaPage ? 'java' : 'python'));
+    const currentLang = isJavaScriptPage ? 'javascript' : (isPythonPage ? 'python' : (isJavaPage ? 'java' : (isCPage ? 'csharp' : 'python')));
     const example = codeExamples[currentLang];
     
     if (codigoBtn && codigoText) {
@@ -189,7 +194,14 @@ document.addEventListener('DOMContentLoaded', () => {
         conditionals: 'int edad = 18;\nif (edad >= 18) {\n  System.out.println("Mayor de edad");\n} else {\n  System.out.println("Menor de edad");\n}'
     };
 
-    const EXAMPLES = isJavaScriptPage ? EXAMPLES_JS : (isJavaPage ? EXAMPLES_JAVA : EXAMPLES_PYTHON);
+    const EXAMPLES_CS = {
+        hola: 'Console.WriteLine("Hola mundo");',
+        math: 'int a = 2 + 3;\nConsole.WriteLine(a);\nConsole.WriteLine(10 * (2 + 3));',
+        loop: 'for (int i = 0; i < 5; i++) {\n  Console.WriteLine(i);\n}',
+        conditionals: 'int edad = 18;\nif (edad >= 18) {\n  Console.WriteLine("Mayor de edad");\n} else {\n  Console.WriteLine("Menor de edad");\n}'
+    };
+
+    const EXAMPLES = isJavaScriptPage ? EXAMPLES_JS : (isJavaPage ? EXAMPLES_JAVA : (isCPage ? EXAMPLES_CS : EXAMPLES_PYTHON));
 
     function evaluateExpr(expr, env) {
         expr = expr.trim();
@@ -466,7 +478,113 @@ document.addEventListener('DOMContentLoaded', () => {
         return (consoleLogs.length > 0 ? consoleLogs.join('\n') : '(sin salida)') + (out ? '\n' + out : '');
     }
 
-    const runSimulator = isJavaScriptPage ? runJavaScriptSim : (isJavaPage ? runJavaSim : runPythonSim);
+    function runCSharpSim(code) {
+        const lines = code.split(/\r?\n/);
+        const env = {};
+        let out = '';
+        const consoleLogs = [];
+
+        for (let i = 0; i < lines.length; i++) {
+            const raw = lines[i];
+            const line = raw.trim();
+            if (!line) continue;
+
+            const printlnMatch = line.match(/Console\.WriteLine\((.*)\);?$/);
+            if (printlnMatch) {
+                const expr = printlnMatch[1];
+                consoleLogs.push(String(evaluateExpr(expr, env)));
+                continue;
+            }
+
+            const varDecl = line.match(/^(?:int|double|float|long|String|string)\s+([a-zA-Z_]\w*)\s*=\s*(.+);?$/);
+            if (varDecl) {
+                const name = varDecl[1];
+                const expr = varDecl[2];
+                env[name] = evaluateExpr(expr, env);
+                continue;
+            }
+
+            const assign = line.match(/^([a-zA-Z_]\w*)\s*=\s*(.+);?$/);
+            if (assign) {
+                const name = assign[1];
+                const expr = assign[2];
+                env[name] = evaluateExpr(expr, env);
+                continue;
+            }
+
+            const forMatch = line.match(/for\s*\(\s*(?:int|long)?\s*([a-zA-Z_]\w*)\s*=\s*0;\s*\1\s*<\s*(\d+);\s*\1\+\+\s*\)\s*\{/);
+            if (forMatch) {
+                const varName = forMatch[1];
+                const n = parseInt(forMatch[2], 10);
+                const block = [];
+                let j = i + 1;
+                let braceCount = 1;
+                while (j < lines.length && braceCount > 0) {
+                    const bline = lines[j].trim();
+                    if (bline.includes('{')) braceCount += (bline.match(/\{/g) || []).length;
+                    if (bline.includes('}')) braceCount -= (bline.match(/\}/g) || []).length;
+                    if (braceCount > 0) block.push(bline);
+                    j++;
+                }
+                i = j - 1;
+                for (let k = 0; k < n; k++) {
+                    env[varName] = k;
+                    for (const bl of block) {
+                        if (bl.startsWith('Console.WriteLine(')) {
+                            const inside = bl.match(/Console\.WriteLine\((.*)\)/)[1];
+                            consoleLogs.push(String(evaluateExpr(inside, env)));
+                        }
+                    }
+                }
+                continue;
+            }
+
+            const ifMatch = line.match(/if\s*\(\s*(.+?)\s*\)\s*\{/);
+            if (ifMatch) {
+                const condition = ifMatch[1];
+                const condValue = evaluateExpr(condition, env);
+                const block = [];
+                let j = i + 1;
+                let braceCount = 1;
+                while (j < lines.length && braceCount > 0) {
+                    const bline = lines[j].trim();
+                    if (bline.includes('{')) braceCount += (bline.match(/\{/g) || []).length;
+                    if (bline.includes('}')) braceCount -= (bline.match(/\}/g) || []).length;
+                    if (braceCount > 0) block.push(bline);
+                    j++;
+                }
+
+                let elseBlock = [];
+                if (j < lines.length && lines[j].trim().startsWith('} else')) {
+                    j++;
+                    braceCount = 1;
+                    while (j < lines.length && braceCount > 0) {
+                        const bline = lines[j].trim();
+                        if (bline.includes('{')) braceCount += (bline.match(/\{/g) || []).length;
+                        if (bline.includes('}')) braceCount -= (bline.match(/\}/g) || []).length;
+                        if (braceCount > 0) elseBlock.push(bline);
+                        j++;
+                    }
+                }
+
+                i = j - 1;
+                const execBlock = condValue ? block : elseBlock;
+                for (const bl of execBlock) {
+                    if (bl.startsWith('Console.WriteLine(')) {
+                        const inside = bl.match(/Console\.WriteLine\((.*)\)/)[1];
+                        consoleLogs.push(String(evaluateExpr(inside, env)));
+                    }
+                }
+                continue;
+            }
+
+            out += `// línea no soportada: ${line}\n`;
+        }
+
+        return (consoleLogs.length > 0 ? consoleLogs.join('\n') : '(sin salida)') + (out ? '\n' + out : '');
+    }
+
+    const runSimulator = isJavaScriptPage ? runJavaScriptSim : (isJavaPage ? runJavaSim : (isCPage ? runCSharpSim : runPythonSim));
 
     if (loadBtn && exampleSelect && editor) {
         loadBtn.addEventListener('click', () => {
