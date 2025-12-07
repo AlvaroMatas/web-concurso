@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" href="logoweb-removebg-preview.png" type="image/png">
+    <link rel="stylesheet" href="Style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lenguajes | C#</title>
+</head>
+<body>
+    <div id="contenedor">
+        <header>
+        <h1 id="tit-head">Lenguajes de Programación 💻</h1>
+        <nav id="menu_nav">
+            <ul id="list_nav">
+                <li class="nav_item">
+                    <a target="_self" class="enlaces_nav" href="index.html">Inicio</a>
+                </li>
+                <li class="nav_item">
+                    <a target="_blank" class="enlaces_nav" href="python.html">Python</a>
+                </li>
+                <li class="nav_item">
+                    <a target="_blank" class="enlaces_nav" href="javascript.html">JavaScript</a>
+                </li>
+                <li class="nav_item">
+                    <a target="_blank" class="enlaces_nav" href="java.html">Java</a>
+                </li>
+                <li class="nav_item">
+                    <a target="_blank" class="enlaces_nav" href="c.html">C#</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main id="cuerpo">
+        <div id="historia">
+            <div id="historia-creador">
+                <h2 id="tit-historia">Historia de Java 📜</h2>
+                <p id="text-historia">Java fue creado en 1991 por James Gosling en Sun Microsystems, lanzado en 1995 con la JVM y hoy es uno de los lenguajes más usados en web, móviles y software empresarial; su lema “Write once, run anywhere” marcó la diferencia en la portabilidad.</p>
+            </div>
+            <div id="historia-creador2">
+                <h2 id="creador-len">Creador</h2>
+                <img src="creador java.jpg" alt="Creador de Java" id="img-creador">
+                <p id="nombre-creador">James Gosling</p>
+            </div>
+        </div>
+        <section id="caracteristicas">
+            <h2 id="tit-caracteristicas">Caracteristicas de Java</h2>
+            <div id="conte-caracteristicas">
+                <div class="caracteristicas-len">
+                    <h3 class="tit-carac-len">Orientado a objetos</h3>
+                    <p class="text-carac-len">→ Todo gira en torno a clases y objetos, lo que facilita la modularidad y reutilización.</p>
+                </div>
+                <div class="caracteristicas-len">
+                    <h3 class="tit-carac-len">Robustez y seguridad</h3>
+                    <p class="text-carac-len">→ Manejo automático de memoria (garbage collector) y control de errores para evitar fallos comunes.</p>
+                </div>
+                <div class="caracteristicas-len">
+                    <h3 class="tit-carac-len">Multihilo</h3>
+                    <p class="text-carac-len">→ Permite ejecutar varias tareas al mismo tiempo dentro de un mismo programa.</p>
+                </div>
+                <div class="caracteristicas-len">
+                    <h3 class="tit-carac-len">Biblioteca extensa</h3>
+                    <p class="text-carac-len">→ Incluye miles de clases y paquetes para redes, bases de datos, interfaces gráficas, etc.</p>
+                </div>
+                <div class="caracteristicas-len">
+                    <h3 class="tit-carac-len">Alto rendimiento</h3>
+                    <p class="text-carac-len">→ Aunque es interpretado por la JVM, usa compilación JIT (Just-In-Time) para mejorar velocidad.</p>
+                </div>
+            </div>
+        </section>
+        <section id="hola_mundo">
+            <h2 id="tit-hola_mundo">Ejemplo de código para ejecutar "Hola mundo"</h2>
+            <div id="contenedor-holamundo">
+                <div class="ejemplo-holamundo">
+                    <h3 id="código-ejemplo">Código</h3>
+                    <button id="boton-codigo-ejemplo">Escribir código</button>
+                    <p id="codigo-ejemplo-text">public class Holamundo {
+                                                    public static void main(String[] args){
+                                                        System.out.println("Hola mundo");
+                                                    }
+                                                }
+                    </p>
+                </div>
+                <div class="ejemplo-holamundo">
+                    <h3 id="resultado-ejemplo">Resultado</h3>
+                    <p id="resultado-ejemplo-text">Hola mundo</p>
+                </div>
+            </div>
+        </section>
+        <section id="simulador">
+            <h2 id="tit-simulador">Simulador de Java 🧪</h2>
+            <div id="simulador-grid">
+                <div class="simu-panel">
+                    <label for="editor-code">Escribe código (sintaxis básica soportada):</label>
+                    <textarea id="editor-code" rows="10" placeholder="System.out.println..."></textarea>
+                    <div class="simu-controls">
+                        <select id="example-select">
+                            <option value="hola">System.out.println</option>
+                            <option value="math">Operaciones</option>
+                            <option value="loop">Bucle for</option>
+                            <option value="conditionals">If/else</option>
+                        </select>
+                        <button id="load-example">Cargar</button>
+                        <button id="run-code">Ejecutar (simulado)</button>
+                        <button id="clear-output">Limpiar</button>
+                        <button id="copy-code">Copiar</button>
+                    </div>
+                </div>
+                <div class="simu-panel output-panel">
+                    <h3>Salida</h3>
+                    <pre id="simulator-output" class="output-box" aria-live="polite">(sin salida)</pre>
+                </div>
+            </div>
+        </section>
+        </section>
+    </main>
+    <footer id="pie_web">
+        © 2025 Álvaro Matas Adam - Todos los derechos reservados.
+    </footer>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
