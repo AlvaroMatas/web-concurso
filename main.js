@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     document.querySelectorAll('.enlaces_nav').forEach(link => {
         link.addEventListener('click', (e) => {
-            
             const href = link.getAttribute('href');
             if (href && href.startsWith('#')) {
                 e.preventDefault();
@@ -53,11 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
     
-    
     document.querySelectorAll('.logos-leng, .porque-que_son, .table-container').forEach(el => {
         observer.observe(el);
     });
-    
     
     const createDarkModeToggle = () => {
         const toggleBtn = document.createElement('button');
@@ -82,9 +79,26 @@ document.addEventListener('DOMContentLoaded', () => {
     
     createDarkModeToggle();
     
-    // Funcionalidad de escritura de c�digo en python.html
     const codigoBtn = document.getElementById('boton-codigo-ejemplo');
     const codigoText = document.getElementById('codigo-ejemplo-text');
+    
+    const currentPageName = window.location.pathname.split('/').pop() || 'index.html';
+    const isJavaScriptPage = currentPageName.includes('javascript');
+    const isPythonPage = currentPageName.includes('python');
+    
+    const codeExamples = {
+        python: {
+            code: 'print("Hola mundo")',
+            result: 'Hola mundo'
+        },
+        javascript: {
+            code: 'console.log("Hola mundo");',
+            result: 'Hola mundo'
+        }
+    };
+    
+    const currentLang = isJavaScriptPage ? 'javascript' : (isPythonPage ? 'python' : 'python');
+    const example = codeExamples[currentLang];
     
     if (codigoBtn && codigoText) {
         let isActive = false;
@@ -97,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 codigoText.classList.add('visible');
                 codigoText.textContent = '';
                 
-                const code = 'print("Hola mundo")';
+                const code = example.code;
                 let i = 0;
                 const speed = 60;
                 
@@ -107,13 +121,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         i++;
                         typeoutTimeout = setTimeout(typeCode, speed);
                     } else {
-                        // Cuando el c�digo termina, mostrar el resultado
                         const resultadoText = document.getElementById('resultado-ejemplo-text');
                         if (resultadoText) {
                             resultadoText.classList.add('visible');
                             resultadoText.textContent = '';
                             
-                            const resultado = 'Hola mundo';
+                            const resultado = example.result;
                             let j = 0;
                             
                             const typeResult = () => {
@@ -142,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Simulador de Python (cliente) ---
     const editor = document.getElementById('editor-code');
     const runBtn = document.getElementById('run-code');
     const clearBtn = document.getElementById('clear-output');
@@ -151,22 +163,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const exampleSelect = document.getElementById('example-select');
     const copyBtn = document.getElementById('copy-code');
 
-    const EXAMPLES = {
+    const EXAMPLES_PYTHON = {
         hola: 'print("Hola mundo")',
         math: 'a = 2 + 3\nprint(a)\nprint(10 * (2 + 3))',
         loop: 'for i in range(5):\n    print(i)'
     };
 
+    const EXAMPLES_JS = {
+        hola: 'console.log("Hola mundo");',
+        math: 'let a = 2 + 3;\nconsole.log(a);\nconsole.log(10 * (2 + 3));',
+        loop: 'for (let i = 0; i < 5; i++) {\n  console.log(i);\n}',
+        conditionals: 'let edad = 18;\nif (edad >= 18) {\n  console.log("Mayor de edad");\n} else {\n  console.log("Menor de edad");\n}'
+    };
+
+    const EXAMPLES = isJavaScriptPage ? EXAMPLES_JS : EXAMPLES_PYTHON;
+
     function evaluateExpr(expr, env) {
         expr = expr.trim();
-        // string literal
         const strm = expr.match(/^(['"])(.*)\1$/);
         if (strm) return strm[2];
-        // number literal
         if (/^[+-]?(\d+(\.\d+)?)$/.test(expr)) return Number(expr);
-        // variable
         if (/^[a-zA-Z_]\w*$/.test(expr)) return env[expr] !== undefined ? env[expr] : `(variable '${expr}' no definida)`;
-        // replace variables with their values for arithmetic
         const safe = expr.replace(/([a-zA-Z_]\w*)/g, (m) => (env[m] !== undefined ? String(env[m]) : 'NaN'));
         if (/^[0-9+\-*/().\s]+$/.test(safe)) {
             try { return Function(`return (${safe})`)(); } catch (e) { return `# error: ${e.message}`; }
@@ -184,12 +201,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const line = raw.trim();
             if (!line) continue;
 
-            // for-loop: for i in range(N):
             const forMatch = line.match(/^for\s+([a-zA-Z_]\w*)\s+in\s+range\((\d+)\):$/);
             if (forMatch) {
                 const varName = forMatch[1];
                 const n = parseInt(forMatch[2], 10);
-                // collect indented block
                 const block = [];
                 let j = i + 1;
                 while (j < lines.length && /^\s+/.test(lines[j])) { block.push(lines[j].trim()); j++; }
@@ -206,7 +221,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 continue;
             }
 
-            // assignment: name = expr
             const assign = line.match(/^([a-zA-Z_]\w*)\s*=\s*(.+)$/);
             if (assign) {
                 const name = assign[1];
@@ -215,7 +229,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 continue;
             }
 
-            // print
             const p = line.match(/^print\((.*)\)$/);
             if (p) {
                 out += String(evaluateExpr(p[1], env)) + '\n';
@@ -228,6 +241,114 @@ document.addEventListener('DOMContentLoaded', () => {
         return out || '(sin salida)';
     }
 
+    function runJavaScriptSim(code) {
+        const lines = code.split(/\r?\n/);
+        const env = {};
+        let out = '';
+        const consoleLogs = [];
+
+        for (let i = 0; i < lines.length; i++) {
+            const raw = lines[i];
+            const line = raw.trim();
+            if (!line) continue;
+
+            const logMatch = line.match(/console\.log\((.*)\);?$/);
+            if (logMatch) {
+                const expr = logMatch[1];
+                consoleLogs.push(String(evaluateExpr(expr, env)));
+                continue;
+            }
+
+            const varDecl = line.match(/^(let|var|const)\s+([a-zA-Z_]\w*)\s*=\s*(.+?);?$/);
+            if (varDecl) {
+                const name = varDecl[2];
+                const expr = varDecl[3];
+                env[name] = evaluateExpr(expr, env);
+                continue;
+            }
+
+            const assign = line.match(/^([a-zA-Z_]\w*)\s*=\s*(.+?);?$/);
+            if (assign) {
+                const name = assign[1];
+                const expr = assign[2];
+                env[name] = evaluateExpr(expr, env);
+                continue;
+            }
+
+            const forMatch = line.match(/for\s*\(\s*(?:let|var|const)?\s*([a-zA-Z_]\w*)\s*=\s*0;\s*\1\s*<\s*(\d+);\s*\1\+\+\s*\)\s*\{/);
+            if (forMatch) {
+                const varName = forMatch[1];
+                const n = parseInt(forMatch[2], 10);
+                const block = [];
+                let j = i + 1;
+                let braceCount = 1;
+                while (j < lines.length && braceCount > 0) {
+                    const bline = lines[j].trim();
+                    if (bline.includes('{')) braceCount += (bline.match(/\{/g) || []).length;
+                    if (bline.includes('}')) braceCount -= (bline.match(/\}/g) || []).length;
+                    if (braceCount > 0) block.push(bline);
+                    j++;
+                }
+                i = j - 1;
+                for (let k = 0; k < n; k++) {
+                    env[varName] = k;
+                    for (const bl of block) {
+                        if (bl.startsWith('console.log(')) {
+                            const inside = bl.match(/console\.log\((.*)\)/)[1];
+                            consoleLogs.push(String(evaluateExpr(inside, env)));
+                        }
+                    }
+                }
+                continue;
+            }
+
+            const ifMatch = line.match(/if\s*\(\s*(.+?)\s*\)\s*\{/);
+            if (ifMatch) {
+                const condition = ifMatch[1];
+                const condValue = evaluateExpr(condition, env);
+                const block = [];
+                let j = i + 1;
+                let braceCount = 1;
+                while (j < lines.length && braceCount > 0) {
+                    const bline = lines[j].trim();
+                    if (bline.includes('{')) braceCount += (bline.match(/\{/g) || []).length;
+                    if (bline.includes('}')) braceCount -= (bline.match(/\}/g) || []).length;
+                    if (braceCount > 0) block.push(bline);
+                    j++;
+                }
+
+                let elseBlock = [];
+                if (j < lines.length && lines[j].trim().startsWith('} else')) {
+                    j++;
+                    braceCount = 1;
+                    while (j < lines.length && braceCount > 0) {
+                        const bline = lines[j].trim();
+                        if (bline.includes('{')) braceCount += (bline.match(/\{/g) || []).length;
+                        if (bline.includes('}')) braceCount -= (bline.match(/\}/g) || []).length;
+                        if (braceCount > 0) elseBlock.push(bline);
+                        j++;
+                    }
+                }
+
+                i = j - 1;
+                const execBlock = condValue ? block : elseBlock;
+                for (const bl of execBlock) {
+                    if (bl.startsWith('console.log(')) {
+                        const inside = bl.match(/console\.log\((.*)\)/)[1];
+                        consoleLogs.push(String(evaluateExpr(inside, env)));
+                    }
+                }
+                continue;
+            }
+
+            out += `// línea no soportada: ${line}\n`;
+        }
+
+        return (consoleLogs.length > 0 ? consoleLogs.join('\n') : '(sin salida)') + (out ? '\n' + out : '');
+    }
+
+    const runSimulator = isJavaScriptPage ? runJavaScriptSim : runPythonSim;
+
     if (loadBtn && exampleSelect && editor) {
         loadBtn.addEventListener('click', () => {
             const ex = exampleSelect.value;
@@ -239,8 +360,8 @@ document.addEventListener('DOMContentLoaded', () => {
         runBtn.addEventListener('click', () => {
             const code = editor.value || '';
             outputEl.textContent = 'Ejecutando...';
-            setTimeout(() => { // simulate async
-                outputEl.textContent = runPythonSim(code);
+            setTimeout(() => {
+                outputEl.textContent = runSimulator(code);
             }, 200);
         });
     }
@@ -364,7 +485,6 @@ style.textContent = `
         background-color: rgba(88, 92, 133, 1);
     }
     
-    /* MODO OSCURO */
     body.dark-mode {
         background-color: #0f0f0f;
         color: #e8e8e8;
@@ -508,11 +628,8 @@ style.textContent = `
         background-color: #64b5f6;
         box-shadow: 0 6px 16px rgba(100, 181, 246, 0.5);
     }
-
-    
 `;
 document.head.appendChild(style);
-
 
 
 
