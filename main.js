@@ -700,7 +700,6 @@ fetch('datos.json')
         box.innerHTML = `
         <h3 class="tit-logo">${lang.name} ${lang.name === 'C#' ? '🎮' : (lang.name === 'Python' ? '🐍' : (lang.name === 'JavaScript' ? '🌐' : '🍵'))}</h3>
         <img src="${lang.logo}" class="logo-leng" alt="${lang.name}">
-        <p class="text-intro" style="margin-top:.4rem">${lang.shortDescription}</p>
         `;
         cont.appendChild(box);
     });
