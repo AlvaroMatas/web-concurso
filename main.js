@@ -707,6 +707,7 @@ fetch('datos.json')
     })
     .catch(err => console.error('No se pudo cargar datos.json:', err));
 
+
 fetch('datos.json')
     .then(res => res.json())
     .then(data => {
@@ -729,10 +730,6 @@ fetch('datos.json')
                 <th>Tipado</th>
                 <th>Paradigmas</th>
                 <th>Ranking</th>
-                <th>Descripción</th>
-                <th>Casos de uso</th>
-                <th>Ejemplo</th>
-                <th>Recursos</th>
             </tr>
         `;
         table.appendChild(thead);
@@ -773,13 +770,7 @@ fetch('datos.json')
             const rankCell = document.createElement('td');
             rankCell.textContent = lang.popularityRank ?? '';
 
-            const descCell = document.createElement('td');
-            descCell.textContent = lang.shortDescription ?? '';
-
-            const useCasesCell = document.createElement('td');
-            useCasesCell.textContent = Array.isArray(lang.useCases) ? lang.useCases.join(', ') : lang.useCases ?? '';
-
-            const sampleCell = document.createElement('td');
+            
             const samplePre = document.createElement('pre');
             samplePre.className = 'sample-code';
             const sampleText = lang.sampleCode?.[lang.id] ?? Object.values(lang.sampleCode || {})[0] ?? '';

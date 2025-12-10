@@ -996,7 +996,7 @@ body.dark-mode .output-box{ background-color: #1a1a2e; color: #e8e8e8; border-co
     display: block;
 }
 
-/* Estilo específico para el bloque del código de ejemplo */
+
 .sample-code {
     margin: 0;
     padding: 0.4rem;
@@ -1007,20 +1007,12 @@ body.dark-mode .output-box{ background-color: #1a1a2e; color: #e8e8e8; border-co
     white-space: pre-wrap;
 }
 
-/* Enlaces dentro de la tabla */
-.datos-table a {
-    color: #1e56d6;
-    text-decoration: none;
-}
-.datos-table a:hover { text-decoration: underline; }
-
-/* Responsivo: en pantallas muy pequeñas reducir tamaño mínimo de tabla */
 @media (max-width:720px) {
     .datos-table { min-width: 760px; }
     .datos-table thead th { font-size: 0.85rem; }
 }
 
-/* Modo oscuro: soporta prefers-color-scheme y la clase body.dark-mode */
+
 @media (prefers-color-scheme: dark) {
     .datos-table-wrapper {
         background: linear-gradient(180deg, rgba(12,14,16,0.9), rgba(8,9,11,0.75));
