@@ -1,0 +1,76 @@
+{
+    "languages": [
+        {
+        "id": "python",
+        "name": "Python",
+        "logo": "python-removebg-preview.png",
+        "yearCreated": 1991,
+        "typing": "Dinámico",
+        "paradigms": ["Imperativo", "Orientado a Objetos", "Funcional", "Procedural"],
+        "popularityRank": 1,
+        "shortDescription": "Lenguaje versátil, fácil de aprender y ampliamente usado en ciencia de datos, web y automatización.",
+        "useCases": ["Ciencia de datos", "Machine Learning", "Desarrollo web", "Automatización", "Scripting"],
+        "sampleCode": {
+            "python": "print('Hola mundo')"
+        },
+        "resources": [
+            { "name": "Documentación oficial", "url": "https://www.python.org/doc/" },
+            { "name": "Tutorial oficial", "url": "https://docs.python.org/3/tutorial/" }
+        ]
+        },
+        {
+        "id": "javascript",
+        "name": "JavaScript",
+        "logo": "javascript-removebg-preview.png",
+        "yearCreated": 1995,
+        "typing": "Dinámico (basado en prototipos)",
+        "paradigms": ["Orientado a Objetos (prototipos)", "Funcional", "Event-driven"],
+        "popularityRank": 2,
+        "shortDescription": "Lenguaje de la web; imprescindible para interactividad en el navegador y cada vez más usado en backend y tooling.",
+        "useCases": ["Desarrollo web (frontend)", "Node.js (backend)", "Aplicaciones móviles/híbridas", "Tooling y scripts"],
+        "sampleCode": {
+            "javascript": "console.log('Hola mundo');"
+        },
+        "resources": [
+            { "name": "MDN Web Docs", "url": "https://developer.mozilla.org/es/docs/Web/JavaScript" },
+            { "name": "ECMAScript", "url": "https://tc39.es/" }
+        ]
+        },
+        {
+        "id": "java",
+        "name": "Java",
+        "logo": "java-removebg-preview.png",
+        "yearCreated": 1995,
+        "typing": "Estático",
+        "paradigms": ["Orientado a Objetos", "Imperativo", "Concurrente"],
+        "popularityRank": 3,
+        "shortDescription": "Lenguaje robusto y portable, muy usado en empresas, aplicaciones móviles (Android) y sistemas de gran escala.",
+        "useCases": ["Backends empresariales", "Android", "Sistemas distribuidos", "Aplicaciones de escritorio"],
+        "sampleCode": {
+            "java": "public class Hola { public static void main(String[] args) { System.out.println(\"Hola mundo\"); } }"
+        },
+        "resources": [
+            { "name": "Documentación Oracle Java", "url": "https://docs.oracle.com/en/java/" },
+            { "name": "Tutorial Java (Oracle)", "url": "https://docs.oracle.com/javase/tutorial/" }
+        ]
+        },
+        {
+        "id": "csharp",
+        "name": "C#",
+        "logo": "C_-removebg-preview.png",
+        "yearCreated": 2000,
+        "typing": "Estático",
+        "paradigms": ["Orientado a Objetos", "Funcional (parcial)", "Imperativo"],
+        "popularityRank": 4,
+        "shortDescription": "Lenguaje moderno de Microsoft, usado en desarrollo de aplicaciones de escritorio, web y videojuegos (Unity).",
+        "useCases": ["Aplicaciones .NET", "Desarrollo de videojuegos (Unity)", "APIs y servicios web", "Aplicaciones de escritorio"],
+        "sampleCode": {
+            "csharp": "using System; class Hola { static void Main() { Console.WriteLine(\"Hola mundo\"); } }"
+        },
+        "resources": [
+            { "name": "Documentación .NET", "url": "https://learn.microsoft.com/dotnet/" },
+            { "name": "Guía C#", "url": "https://learn.microsoft.com/dotnet/csharp/" }
+        ]
+        }
+    ]
+}

@@ -688,6 +688,164 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+fetch('datos.json')
+    .then(res => res.json())
+    .then(data => {
+    const cont = document.getElementById('leng-pop');
+    if (!cont) return;
+    cont.innerHTML = ''; 
+    data.languages.forEach(lang => {
+        const box = document.createElement('div');
+        box.className = 'logos-leng';
+        box.innerHTML = `
+        <h3 class="tit-logo">${lang.name} ${lang.name === 'C#' ? '🎮' : (lang.name === 'Python' ? '🐍' : (lang.name === 'JavaScript' ? '🌐' : '🍵'))}</h3>
+        <img src="${lang.logo}" class="logo-leng" alt="${lang.name}">
+        <p class="text-intro" style="margin-top:.4rem">${lang.shortDescription}</p>
+        `;
+        cont.appendChild(box);
+    });
+    })
+    .catch(err => console.error('No se pudo cargar datos.json:', err));
+
+fetch('datos.json')
+    .then(res => res.json())
+    .then(data => {
+        console.log('datos.json cargado correctamente');
+        const container = document.getElementById('datos-leng');
+        if (!container) return;
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'datos-table-wrapper';
+
+        const table = document.createElement('table');
+        table.className = 'datos-table';
+
+        const thead = document.createElement('thead');
+        thead.innerHTML = `
+            <tr>
+                <th>Logo</th>
+                <th>Lenguaje</th>
+                <th>Año</th>
+                <th>Tipado</th>
+                <th>Paradigmas</th>
+                <th>Ranking</th>
+                <th>Descripción</th>
+                <th>Casos de uso</th>
+                <th>Ejemplo</th>
+                <th>Recursos</th>
+            </tr>
+        `;
+        table.appendChild(thead);
+
+        const escapeHtml = (str) => {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        };
+
+        const tbody = document.createElement('tbody');
+
+        data.languages.forEach(lang => {
+            const tr = document.createElement('tr');
+
+            const logoCell = document.createElement('td');
+            logoCell.className = 'td-logo';
+            const img = document.createElement('img');
+            img.src = lang.logo;
+            img.alt = lang.name;
+            img.className = 'logo-table';
+            logoCell.appendChild(img);
+
+            const nameCell = document.createElement('td');
+            nameCell.textContent = lang.name;
+
+            const yearCell = document.createElement('td');
+            yearCell.textContent = lang.yearCreated;
+
+            const typingCell = document.createElement('td');
+            typingCell.textContent = lang.typing;
+
+            const paradigmsCell = document.createElement('td');
+            paradigmsCell.textContent = Array.isArray(lang.paradigms) ? lang.paradigms.join(', ') : lang.paradigms;
+
+            const rankCell = document.createElement('td');
+            rankCell.textContent = lang.popularityRank ?? '';
+
+            const descCell = document.createElement('td');
+            descCell.textContent = lang.shortDescription ?? '';
+
+            const useCasesCell = document.createElement('td');
+            useCasesCell.textContent = Array.isArray(lang.useCases) ? lang.useCases.join(', ') : lang.useCases ?? '';
+
+            const sampleCell = document.createElement('td');
+            const samplePre = document.createElement('pre');
+            samplePre.className = 'sample-code';
+            const sampleText = lang.sampleCode?.[lang.id] ?? Object.values(lang.sampleCode || {})[0] ?? '';
+            samplePre.innerHTML = escapeHtml(sampleText);
+            sampleCell.appendChild(samplePre);
+
+            const resourcesCell = document.createElement('td');
+            if (Array.isArray(lang.resources)) {
+                resourcesCell.innerHTML = lang.resources.map(r => `<a href="${r.url}" target="_blank" rel="noopener noreferrer">${r.name}</a>`).join('<br>');
+            }
+
+            tr.appendChild(logoCell);
+            tr.appendChild(nameCell);
+            tr.appendChild(yearCell);
+            tr.appendChild(typingCell);
+            tr.appendChild(paradigmsCell);
+            tr.appendChild(rankCell);
+            tr.appendChild(descCell);
+            tr.appendChild(useCasesCell);
+            tr.appendChild(sampleCell);
+            tr.appendChild(resourcesCell);
+
+            tbody.appendChild(tr);
+        });
+
+        table.appendChild(tbody);
+        wrapper.appendChild(table);
+        container.innerHTML = '';
+        container.appendChild(wrapper);
+    })
+    .catch(err => console.error('No se pudo cargar datos.json:', err));
+
+fetch('datos.json')
+    .then(res => res.json())
+    .then(data => {
+        const tbody = document.getElementById('datos-leng-tbody');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+
+        const escapeHtml = (s) =>
+        String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+        data.languages.forEach(lang => {
+        const sampleText = lang.sampleCode?.[lang.id] ?? Object.values(lang.sampleCode || {})[0] ?? '';
+        const resourcesHtml = Array.isArray(lang.resources)
+        ? lang.resources.map(r => `<a href="${r.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(r.name)}</a>`).join('<br>')
+        : '';
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+        <td class="td-logo"><img src="${escapeHtml(lang.logo)}" alt="${escapeHtml(lang.name)}" class="logo-table"></td>
+        <td>${escapeHtml(lang.name)}</td>
+        <td>${escapeHtml(lang.yearCreated)}</td>
+        <td>${escapeHtml(lang.typing)}</td>
+        <td>${escapeHtml(Array.isArray(lang.paradigms) ? lang.paradigms.join(', ') : lang.paradigms)}</td>
+        <td>${escapeHtml(lang.popularityRank)}</td>
+        <td>${escapeHtml(lang.shortDescription)}</td>
+        <td>${escapeHtml(Array.isArray(lang.useCases) ? lang.useCases.join(', ') : lang.useCases)}</td>
+        <td><pre class="sample-code">${escapeHtml(sampleText)}</pre></td>
+        <td>${resourcesHtml}</td>
+        `;
+        tbody.appendChild(tr);
+        });
+    })
+    .catch(err => console.error('No se pudo cargar datos.json:', err));
+
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {
