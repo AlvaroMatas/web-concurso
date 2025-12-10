@@ -788,10 +788,6 @@ fetch('datos.json')
             tr.appendChild(typingCell);
             tr.appendChild(paradigmsCell);
             tr.appendChild(rankCell);
-            tr.appendChild(descCell);
-            tr.appendChild(useCasesCell);
-            tr.appendChild(sampleCell);
-            tr.appendChild(resourcesCell);
 
             tbody.appendChild(tr);
         });
@@ -827,10 +823,6 @@ fetch('datos.json')
         <td>${escapeHtml(lang.typing)}</td>
         <td>${escapeHtml(Array.isArray(lang.paradigms) ? lang.paradigms.join(', ') : lang.paradigms)}</td>
         <td>${escapeHtml(lang.popularityRank)}</td>
-        <td>${escapeHtml(lang.shortDescription)}</td>
-        <td>${escapeHtml(Array.isArray(lang.useCases) ? lang.useCases.join(', ') : lang.useCases)}</td>
-        <td><pre class="sample-code">${escapeHtml(sampleText)}</pre></td>
-        <td>${resourcesHtml}</td>
         `;
         tbody.appendChild(tr);
         });
