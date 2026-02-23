@@ -1049,3 +1049,117 @@ body.dark-mode .sample-code {
     background: linear-gradient(180deg,#060708,#0c0c0d);
     color: #eaf0ff;
 }
+
+/* Mejora del botón Ejecutar */
+.btn-run {
+    background: linear-gradient(90deg, #2ecc71, #27ae60) !important;
+    color: white !important;
+    font-weight: bold;
+    border: none !important;
+    padding: 10px 20px !important;
+}
+
+.btn-run:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+/* Clases de utilidad para el JS */
+.visible {
+    display: block !important;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilo para el footer semántico */
+footer p {
+    margin: 0;
+    font-size: 14px;
+    color: #f0f0f0;
+}
+
+/* Mejora accesibilidad imágenes */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* --- NUEVA SECCIÓN HERO --- */
+#hero {
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    margin-bottom: 40px;
+}
+
+.hero-content h2 { font-size: 3rem; margin-bottom: 1rem; }
+.hero-content p { font-size: 1.2rem; margin-bottom: 2rem; }
+
+.btn-primary {
+    background-color: #3498db;
+    color: white;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-primary:hover { background-color: #2980b9; }
+
+/* --- BUSCADOR DINÁMICO --- */
+.search-box {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+}
+
+#input-busqueda {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    font-size: 1rem;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 100;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.result-item {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.result-item:hover { background-color: #f8f9fa; cursor: pointer; }
+
+/* Título de sección secundaria */
+.tit-seccion-sec {
+    text-align: center;
+    margin-top: 40px;
+    color: #2c3e50;
+    font-size: 2.5rem;
+}

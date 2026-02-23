@@ -1,116 +1,105 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <link rel="icon" href="logoweb-removebg-preview.png" type="image/png">
-    <link rel="stylesheet" href="Style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lenguajes | C#</title>
+    <title>C# | Modernidad y Versatilidad</title>
+    <meta name="description" content="Aprende C#, el lenguaje líder en desarrollo de videojuegos y sistemas Windows.">
+    <meta name="keywords" content="C#, .NET, CSharp, Unity, desarrollo videojuegos">
+    <meta name="author" content="Álvaro Matas Adam">
+    <link rel="icon" href="logoweb-removebg-preview.png" type="image/png">
+    <link rel="stylesheet" href="Style.css">
 </head>
 <body>
     <div id="contenedor">
         <header>
-        <h1 id="tit-head">Lenguajes de Programación 💻</h1>
-        <nav id="menu_nav">
-            <ul id="list_nav">
-                <li class="nav_item">
-                    <a target="_self" class="enlaces_nav" href="index.html">Inicio</a>
-                </li>
-                <li class="nav_item">
-                    <a target="_blank" class="enlaces_nav" href="python.html">Python</a>
-                </li>
-                <li class="nav_item">
-                    <a target="_blank" class="enlaces_nav" href="javascript.html">JavaScript</a>
-                </li>
-                <li class="nav_item">
-                    <a target="_blank" class="enlaces_nav" href="java.html">Java</a>
-                </li>
-                <li class="nav_item">
-                    <a target="_blank" class="enlaces_nav" href="c.html">C#</a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    <main id="cuerpo">
-        <div id="historia">
-            <div id="historia-creador">
-                <h2 id="tit-historia">Historia de C# 📜</h2>
-                <p id="text-historia">C# fue creado en el año 2000 por Microsoft, liderado por Anders Hejlsberg, como parte de la plataforma .NET, y desde entonces ha evolucionado hasta convertirse en un lenguaje moderno, seguro y multiplataforma</p>
-            </div>
-            <div id="historia-creador2">
-                <h2 id="creador-len">Creador</h2>
-                <img src="creador c.jpg" alt="Creador de C#" id="img-creador">
-                <p id="nombre-creador">Anders Hejlsberg</p>
-            </div>
-        </div>
-        <section id="caracteristicas">
-            <h2 id="tit-caracteristicas">Caracteristicas de C#</h2>
-            <div id="conte-caracteristicas">
-                <div class="caracteristicas-len">
-                    <h3 class="tit-carac-len">Tipado fuerte y seguro</h3>
-                    <p class="text-carac-len">→ Las variables deben declararse con tipos definidos, lo que reduce errores.</p>
-                </div>
-                <div class="caracteristicas-len">
-                    <h3 class="tit-carac-len">Multiplataforma</h3>
-                    <p class="text-carac-len">→ Gracias a .NET Core y .NET 5/6/7, funciona en Windows, Linux y macOS.</p>
-                </div>
-                <div class="caracteristicas-len">
-                    <h3 class="tit-carac-len">Sintaxis familiar</h3>
-                    <p class="text-carac-len">→ Parecida a C, C++ y Java, lo que facilita aprenderlo si conoces esos lenguajes.</p>
-                </div>
-                <div class="caracteristicas-len">
-                    <h3 class="tit-carac-len">Interoperabilidad</h3>
-                    <p class="text-carac-len">→ Puede interactuar con código en C/C++ y otras tecnologías de Windows.</p>
-                </div>
-                <div class="caracteristicas-len">
-                    <h3 class="tit-carac-len">Versatilidad</h3>
-                    <p class="text-carac-len">→ Se usa en aplicaciones empresariales, servicios web, APIs, videojuegos y apps móviles.</p>
-                </div>
-            </div>
-        </section>
-        <section id="hola_mundo">
-            <h2 id="tit-hola_mundo">Ejemplo de código para ejecutar "Hola mundo"</h2>
-            <div id="contenedor-holamundo">
-                <div class="ejemplo-holamundo">
-                    <h3 id="código-ejemplo">Código</h3>
-                    <button id="boton-codigo-ejemplo">Escribir código</button>
-                    <p id="codigo-ejemplo-text"></p>
-                </div>
-                <div class="ejemplo-holamundo">
-                    <h3 id="resultado-ejemplo">Resultado</h3>
-                    <p id="resultado-ejemplo-text">Hola mundo</p>
-                </div>
-            </div>
-        </section>
-        <section id="simulador">
-            <h2 id="tit-simulador">Simulador de C# 🧪</h2>
-            <div id="simulador-grid">
-                <div class="simu-panel">
-                    <label for="editor-code">Escribe código (sintaxis básica soportada):</label>
-                    <textarea id="editor-code" rows="10" placeholder="Console.WriteLine..."></textarea>
-                    <div class="simu-controls">
-                        <select id="example-select">
-                            <option value="hola">Console.WriteLine</option>
-                            <option value="math">Operaciones</option>
-                            <option value="loop">Bucle for</option>
-                            <option value="conditionals">If/else</option>
-                        </select>
-                        <button id="load-example">Cargar</button>
-                        <button id="run-code">Ejecutar (simulado)</button>
-                        <button id="clear-output">Limpiar</button>
-                        <button id="copy-code">Copiar</button>
+            <h1 id="tit-head">Lenguajes de Programación 💻</h1>
+            <nav id="menu_nav">
+                <ul id="list_nav">
+                    <li class="nav_item"><a target="_self" class="enlaces_nav" href="index.html">Inicio</a></li>
+                    <li class="nav_item"><a target="_self" class="enlaces_nav" href="python.html">Python</a></li>
+                    <li class="nav_item"><a target="_self" class="enlaces_nav" href="javascript.html">JavaScript</a></li>
+                    <li class="nav_item"><a target="_self" class="enlaces_nav" href="java.html">Java</a></li>
+                    <li class="nav_item"><a target="_self" class="enlaces_nav" href="c.html">C#</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main id="cuerpo">
+            <section id="simulador">
+                <h2 id="tit-simulador">Consola C# Interactiva 🧪</h2>
+                <div id="simulador-grid">
+                    <div class="simu-panel">
+                        <label for="editor-code">Código .NET:</label>
+                        <textarea id="editor-code" rows="10" placeholder="Console.WriteLine('¡Hola desde C#!')"></textarea>
+                        <div class="simu-controls">
+                            <select id="example-select">
+                                <option value="hola">Write Line</option>
+                                <option value="math">Operaciones</option>
+                                <option value="loop">Bucle for</option>
+                            </select>
+                            <button id="load-example">Cargar</button>
+                            <button id="run-code" class="btn-run">Ejecutar C# ▶</button>
+                            <button id="clear-output">Limpiar</button>
+                            <button id="copy-code">Copiar</button>
+                        </div>
+                    </div>
+                    <div class="simu-panel output-panel">
+                        <h3>Salida de Consola</h3>
+                        <pre id="simulator-output" class="output-box" aria-live="polite">(esperando ejecución...)</pre>
                     </div>
                 </div>
-                <div class="simu-panel output-panel">
-                    <h3>Salida</h3>
-                    <pre id="simulator-output" class="output-box" aria-live="polite">(sin salida)</pre>
+            </section>
+
+            <div id="historia">
+                <div id="historia-creador">
+                    <h2 id="tit-historia">Historia de C# 📜</h2>
+                    <p id="text-historia">Lanzado por Microsoft en el año 2000 y liderado por Anders Hejlsberg. Nació para competir en el ecosistema .NET y hoy es esencial para Unity.</p>
+                </div>
+                <div id="historia-creador2">
+                    <h2 id="creador-len">Creador</h2>
+                    <img src="creador c.jpg" alt="Anders Hejlsberg, creador de C#" id="img-creador">
+                    <p id="nombre-creador">Anders Hejlsberg</p>
                 </div>
             </div>
-        </section>
-    </main>
-    <footer id="pie_web">
-        © 2025 Álvaro Matas Adam - Todos los derechos reservados.
-    </footer>
+
+            <section id="caracteristicas">
+                <h2 id="tit-caracteristicas">Características de C#</h2>
+                <div id="conte-caracteristicas">
+                    <div class="caracteristicas-len">
+                        <h3 class="tit-carac-len">Seguridad de Tipos</h3>
+                        <p class="text-carac-len">→ Evita errores comunes de programación mediante un tipado estricto.</p>
+                    </div>
+                    <div class="caracteristicas-len">
+                        <h3 class="tit-carac-len">Gaming</h3>
+                        <p class="text-carac-len">→ Es el lenguaje principal del motor de videojuegos Unity.</p>
+                    </div>
+                    <div class="caracteristicas-len">
+                        <h3 class="tit-carac-len">Interoperable</h3>
+                        <p class="text-carac-len">→ Excelente integración con servicios de Windows y la nube.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="hola_mundo">
+                <h2 id="tit-hola_mundo">Hola Mundo en C#</h2>
+                <div id="contenedor-holamundo">
+                    <div class="ejemplo-holamundo">
+                        <h3 id="código-ejemplo">Código</h3>
+                        <button id="boton-codigo-ejemplo">Ver</button>
+                        <p id="codigo-ejemplo-text">Console.WriteLine("Hola mundo");</p>
+                    </div>
+                    <div class="ejemplo-holamundo">
+                        <h3 id="resultado-ejemplo">Resultado</h3>
+                        <p id="resultado-ejemplo-text">Hola mundo</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer id="pie_web">
+            <p>© 2025 Álvaro Matas Adam - Todos los derechos reservados.</p>
+        </footer>
     </div>
     <script src="main.js"></script>
 </body>
