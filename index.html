@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MasterCode | El Universo de la Programación</title>
     
-    <meta name="description" content="Explora los lenguajes de programación más potentes del 2025. Comparativas, simuladores y recursos para aprender.">
+    <meta name="description" content="Explora los lenguajes de programación más potentes. Comparativas interactivas y recursos.">
     <meta name="author" content="Álvaro Matas Adam">
     <link rel="icon" href="logoweb-removebg-preview.png" type="image/png">
     
@@ -31,8 +31,7 @@
             <section id="hero">
                 <div class="hero-content">
                     <h2>Domina el código, construye el futuro 🚀</h2>
-                    <p>Descubre cuál es el mejor lenguaje para tu próximo proyecto con nuestra guía interactiva.</p>
-                    <a href="#tit-leng-pop" class="btn-primary">Empezar a explorar</a>
+                    <p>Descubre cuál es el mejor lenguaje para tu próximo proyecto.</p>
                 </div>
             </section>
 
@@ -67,39 +66,52 @@
                 </div>
             </div>
 
-            <section id="datos-leng">
-                <h2 class="tit-seccion-sec">Comparativa de Rendimiento</h2>
-                <div class="datos-table-wrapper">
-                    <table class="datos-table">
+            <section id="comparador-interactivo">
+                <h2 class="tit-seccion-sec">Comparador Inteligente 🛠️</h2>
+                <p>Selecciona dos lenguajes para ver sus diferencias técnicas.</p>
+                <div class="selector-container">
+                    <div class="select-group">
+                        <label for="lang1">Primer Lenguaje:</label>
+                        <select id="lang1">
+                            <option value="python">Python</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="java">Java</option>
+                            <option value="csharp">C#</option>
+                        </select>
+                    </div>
+                    
+                    <span class="vs-circle">VS</span>
+
+                    <div class="select-group">
+                        <label for="lang2">Segundo Lenguaje:</label>
+                        <select id="lang2">
+                            <option value="javascript">JavaScript</option>
+                            <option value="python">Python</option>
+                            <option value="java">Java</option>
+                            <option value="csharp">C#</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="btn-comparar">Comparar Ahora ▶</button>
+
+                <div id="resultado-comparativa" class="table-container" style="display: none;">
+                    <table class="comparativa-table">
                         <thead>
-                            <tr>
-                                <th>Logo</th>
-                                <th>Lenguaje</th>
-                                <th>Año</th>
-                                <th>Tipado</th>
-                                <th>Ranking</th>
+                            <tr id="header-comparativa">
+                                <th>Aspecto Técnico</th>
+                                <th id="name-l1">Lenguaje 1</th>
+                                <th id="name-l2">Lenguaje 2</th>
                             </tr>
                         </thead>
-                        <tbody id="datos-leng-tbody">
+                        <tbody id="body-comparativa">
                             </tbody>
                     </table>
-                </div>
-            </section>
-
-            <section id="formacion-section">
-                <h2 id="tit-formacion">Buscador de Cursos</h2>
-                <div id="form">
-                    <p id="desc-formacion">Escribe un lenguaje para ver información instantánea.</p>
-                    <div class="search-box">
-                        <input type="text" id="input-busqueda" placeholder="Ej: Python, Java...">
-                        <div id="resultados-busqueda" class="search-results"></div>
-                    </div>
                 </div>
             </section>
         </main>
 
         <footer id="pie_web">
-            <p>© 2025 Álvaro Matas Adam - Proyecto Galardonado en Concurso Web</p>
+            <p>© 2025 Álvaro Matas Adam - Proyecto Educativo</p>
         </footer>
     </div>
     <script src="main.js"></script>
